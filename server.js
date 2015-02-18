@@ -14,7 +14,7 @@ var request = require('request');
 var xml2js = require('xml2js');
 
 //var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
-var agenda = require('agenda')({ db: { address: 'mongodb://hanumanthraju:bharampura321@ds043981.mongolab.com:43981/showtrackrdemo' } });
+var agenda = require('agenda')({ db: { address: 'mongodb://showtrackrdemo:showtrackrdemo@ds043981.mongolab.com:43981/showtrackrdemo' } });
 //var agenda = require('agenda')({ db: { address: 'mongodb://sahat:foobar@ds041178.mongolab.com:41178/showtrackrdemo' } });
 
 var sugar = require('sugar');
@@ -86,7 +86,7 @@ var User = mongoose.model('User', userSchema);
 var Show = mongoose.model('Show', showSchema);
 
 //mongoose.connect('localhost');
-mongoose.connect('mongodb://hanumanthraju:showtrackrdemo@ds043981.mongolab.com:43981/showtrackrdemo');
+mongoose.connect('mongodb://showtrackrdemo:showtrackrdemo@ds043981.mongolab.com:43981/showtrackrdemo');
 //mongoose.connect('mongodb://sahat:foobar@ds041178.mongolab.com:41178/showtrackrdemo');
 var app = express();
 
