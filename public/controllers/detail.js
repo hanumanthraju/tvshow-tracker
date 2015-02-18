@@ -2,7 +2,7 @@ angular.module('MyApp')
   .controller('DetailCtrl', function($scope, $rootScope, $routeParams, Show, Subscription) {
       Show.get({ _id: $routeParams.id }, function(show) {
         $scope.show = show;
-
+		$rootScope.title = show.name;
         $scope.isSubscribed = function() {
           return $scope.show.subscribers.indexOf($rootScope.currentUser._id) !== -1;
         };

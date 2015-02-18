@@ -13,8 +13,8 @@ var async = require('async');
 var request = require('request');
 var xml2js = require('xml2js');
 
-//var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
-var agenda = require('agenda')({ db: { address: 'mongodb://hanumanthraju:bharampura321@ds043981.mongolab.com:43981/showtrackrdemo' } });
+var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
+//var agenda = require('agenda')({ db: { address: 'mongodb://hanumanthraju:bharampura321@ds043981.mongolab.com:43981/showtrackrdemo' } });
 //var agenda = require('agenda')({ db: { address: 'mongodb://sahat:foobar@ds041178.mongolab.com:41178/showtrackrdemo' } });
 
 var sugar = require('sugar');
@@ -85,8 +85,8 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 var User = mongoose.model('User', userSchema);
 var Show = mongoose.model('Show', showSchema);
 
-//mongoose.connect('localhost');
-mongoose.connect('mongodb://hanumanthraju:bharampura321@ds043981.mongolab.com:43981/showtrackrdemo');
+mongoose.connect('localhost');
+//mongoose.connect('mongodb://hanumanthraju:bharampura321@ds043981.mongolab.com:43981/showtrackrdemo');
 //mongoose.connect('mongodb://sahat:foobar@ds041178.mongolab.com:41178/showtrackrdemo');
 var app = express();
 
@@ -237,6 +237,41 @@ app.get('/api/shows/:id', function(req, res, next) {
     if (err) return next(err);
     res.send(show);
   });
+});
+var ObjectId = require('mongoose').Types.ObjectId; 
+
+
+app.get('/api/user/:id',  ensureAuthenticated, function(req, res, next) {
+  
+  if (!req.params.id) {
+    return res.send(400, { message: 'Email parameter is required.' });
+  }
+  user_id = new ObjectId(req.params.id);
+  var query = User.findOne({ _id: user_id });
+  var showInfo = '';
+  var profileInfo = '';
+  var showQuery = Show.find({ subscribers:user_id });
+   showQuery.select('_id name');
+   showQuery.exec(function(err, show) {
+    if (err) return next(err);
+    showInfo = show;
+    //console.log('%s %s', show[0].name, show[0]._id);
+  });
+ // selecting the `name` and `occupation` fields
+ query.select('_id name email');
+ // execute the query at a later time
+ query.exec(function (err, user) {
+  if (err) return next(err);
+   profileInfo = {user:user, shows:showInfo};
+   res.send(profileInfo);  
+  //console.log('%s %s', user.name, user.email);
+ });
+ 
+ /* User.findOne({ _id: user_id }, function(err, user) {
+    if (err) return next(err);
+    res.send(user);
+  });
+*/
 });
 
 app.post('/api/shows', function (req, res, next) {

@@ -3,7 +3,7 @@
 <head>
   <base href="/">
   <meta charset="utf-8">
-  <title>ShowTrackr</title>
+  <title ng-bind="title"></title>
   <link href="favicon.png" rel="icon" type="image/png">
   <link href='http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
   <link href="//cdn.jsdelivr.net/ionicons/1.4.1/css/ionicons.min.css" rel="stylesheet">
@@ -20,13 +20,14 @@
   <ul class="nav navbar-nav">
     <li data-match-route="/$"><a href="/">Home</a></li>
     <li data-match-route="/add"><a href="/add">Add</a></li>
+	<li ng-if="currentUser" data-match-route="/user/{{currentUser._id}}"><a ng-if="currentUser" href="/user/{{currentUser._id}}">Profile</a></li>
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
     <li data-match-route="/login"><a href="/login">Login</a></li>
     <li data-match-route="/signup"><a href="/signup">Sign up</a></li>
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="currentUser">
-    <li class="navbar-text" ng-bind="currentUser.email"></li>
+	<li class="navbar-text" ng-bind="currentUser.email"></li>
     <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
   </ul>
 </div>
@@ -52,8 +53,10 @@
 <script src="controllers/navbar.js"></script>
 <script src="controllers/login.js"></script>
 <script src="controllers/signup.js"></script>
+<script src="controllers/user-profile.js"></script>
 <script src="services/auth.js"></script>
 <script src="services/show.js"></script>
+<script src="services/user.js"></script>
 <script src="services/subscription.js"></script>
 
 <!--<script src="app.min.js"></script>-->

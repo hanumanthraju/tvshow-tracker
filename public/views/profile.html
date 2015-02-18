@@ -1,0 +1,19 @@
+
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">Profile info</div>
+    <div class="panel-body">
+        <div class="form-group">
+          <label class="control-label">Name:</label><p>{{user.name}}</p>
+        </div>
+		<div class="form-group">
+          <label class="control-label">Email:</label><p>{{user.email}}</p>
+        </div>
+    </div>
+    <div class="panel-heading">Subscription List</div>
+    <div class="panel-body" ng-repeat="show in showList">
+        <label class="control-label"></label><a href="/shows/{{show._id}}">{{show.name}}</a>
+    </div>
+  </div>
+</div>
+
