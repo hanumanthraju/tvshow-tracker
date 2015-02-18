@@ -1,4 +1,4 @@
 ShowTrackr
 ==========
 
-![](http://sahatyalkabov.com/images/projects/showtrackr.png)
+![](public/images/tv-showtracker.png)
